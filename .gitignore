@@ -1,0 +1,11 @@
+# Project place file
+/Liminal.rbxlx
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+*.rbxl
+*.rbxlx
+
+/api_key.txt
+api_key.txt
