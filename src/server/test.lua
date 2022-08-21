@@ -19,4 +19,4 @@ registry:registerComponents("Color", {
 	a = 0,
 })
 
-local rainbow_part = registry:registerEntity("rainbow_part", { "Position", "Color" })
+-- local rainbow_part = registry:registerEntity("rainbow_part", { "Position", "Color" })
