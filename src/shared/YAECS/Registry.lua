@@ -172,6 +172,8 @@ function REGISTRY:registerSystem(component, type)
 		error("[YAECS] System linked with " .. component .. " already exists")
 		return
 	end
+
+	print(type)
 end
 
 --// REGISTRY // --
