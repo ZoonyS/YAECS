@@ -10,7 +10,7 @@ function REGISTRY.new()
 	local self = setmetatable({}, REGISTRY)
 
 	--// INSTANCE PROPERTIES //--
-	self.Entitys = {}
+	self.Entities = {}
 	self.Components = {}
 	self.enabled = false
 	--////--
@@ -19,7 +19,7 @@ end
 
 --// INSTANCE METHODS //--
 
---// Entitys //--
+--// Entities //--
 
 function REGISTRY:registerEntity(name, components)
 	-- create and add new entity to registry list
@@ -29,7 +29,7 @@ function REGISTRY:registerEntity(name, components)
 		return
 	end
 
-	if self.Entitys[name] then
+	if self.Entities[name] then
 		error("[YAECS] Entity with name " .. name .. " already exists")
 		return
 	end
@@ -38,7 +38,7 @@ function REGISTRY:registerEntity(name, components)
 
 	local newEntity = entity.new(#Entity, name, components)
 
-	self.Entitys[newEntity] = newEntity
+	self.Entities[newEntity] = newEntity
 	print("test")
 end
 
@@ -50,9 +50,9 @@ function REGISTRY:hasEntity(entity)
 		return
 	end
 
-	--return self.Entitys[entity] ~= nil
+	--return self.Entities[entity] ~= nil
 
-	if entity == self.Entitys[entity] then
+	if entity == self.Entities[entity] then
 		return true
 	else
 		return false
@@ -67,8 +67,8 @@ function REGISTRY:removeEntity(entity)
 		return
 	end
 
-	if self.Entitys[entity] then
-		self.Entitys[entity] = nil
+	if self.Entities[entity] then
+		self.Entities[entity] = nil
 	end
 end
 
@@ -80,17 +80,11 @@ function REGISTRY:getEntityByName(entityName)
 		return
 	end
 
-	if self.Entitys[entityName] then
-		return self.Entitys[entityName]
+	if self.Entities[entityName] then
+		return self.Entities[entityName]
 	else
 		return nil
 	end
-
-	-- for _, entity in pairs(self.Entitys) do
-	-- 	if entity.name == entityName then
-	-- 		return entity
-	-- 	end
-	-- end
 end
 
 function REGISTRY:getEntityByID(entityID)
@@ -101,7 +95,7 @@ function REGISTRY:getEntityByID(entityID)
 		return
 	end
 
-	for _, entity in pairs(self.Entitys) do
+	for _, entity in pairs(self.Entities) do
 		if entity.id == entityID then
 			return entity
 		end
@@ -166,7 +160,7 @@ end
 
 --// COMPONENT SYSTEM //--
 
-function REGISTRY:registerSystem(name, component, type)
+function REGISTRY:registerSystem(component, type)
 	-- create and add new system to registry list
 
 	if not self.enabled then
@@ -174,8 +168,8 @@ function REGISTRY:registerSystem(name, component, type)
 		return
 	end
 
-	if self.Systems[name] then
-		error("[YAECS] System with name " .. name .. " already exists")
+	if self.Systems[component] then
+		error("[YAECS] System linked with " .. component .. " already exists")
 		return
 	end
 end
@@ -191,8 +185,8 @@ end
 function REGISTRY:cleanRegistry()
 	-- clean everything safely from registry
 
-	for _, entity in pairs(self.Entitys) do
-		self.Entitys[entity] = nil
+	for _, entity in pairs(self.Entities) do
+		self.Entities[entity] = nil
 	end
 end
 
