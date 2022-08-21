@@ -8,7 +8,13 @@ function SYSTEM.new()
 	local self = setmetatable({}, SYSTEM)
 
 	--// INSTANCE PROPERTIES //--
-	self.types = { "onUpdate", "onCreate", "onDestroy", "onCollision", "onTouch" }
+	self.onEvents = {
+		onUpdate = {},
+		onCreate = {},
+		onDestroy = {},
+		onCollision = {},
+		onTouch = {},
+	}
 	--////--
 	return self
 end
@@ -16,6 +22,22 @@ end
 --// STATIC METHODS //--
 
 --// INSTANCE METHODS //--
+
+function SYSTEM:pushFunctionToOnEvents(onEvents, toCall)
+	-- push functions to Events Table
+
+	if not self.onEvents[onEvents] then
+		error("[YAECS] OnEvents " .. onEvents .. " does not exist")
+		return
+	end
+
+	if type(toCall) ~= "function" then
+		error("[YAECS] Function to push to OnEvents " .. onEvents .. " is not a function")
+		return
+	end
+
+	table.insert(self.onEvents[onEvents], toCall)
+end
 
 --// INSTRUCTIONS //--
 

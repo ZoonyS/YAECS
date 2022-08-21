@@ -2,8 +2,7 @@ local REGISTRY = {}
 
 --// STATIC PROPERTIES //--
 local REPLICATED_STORAGE = game:GetService("ReplicatedStorage")
-local CLASSES = REPLICATED_STORAGE.Common.Class
-local Entity = CLASSES["Entity"]
+local YAECS = REPLICATED_STORAGE.Common.YAECS
 
 --// CONSTRUCTORS //--
 function REGISTRY.new()
@@ -12,6 +11,7 @@ function REGISTRY.new()
 	--// INSTANCE PROPERTIES //--
 	self.Entities = {}
 	self.Components = {}
+	self.Systems = {}
 	self.enabled = false
 	--////--
 	return self
@@ -34,9 +34,9 @@ function REGISTRY:registerEntity(name, components)
 		return
 	end
 
-	local entity = require(Entity)()
+	local entity = require(YAECS["Entity"])
 
-	local newEntity = entity.new(#Entity, name, components)
+	local newEntity = entity.new(#REGISTRY.Entities, name, components)
 
 	self.Entities[newEntity] = newEntity
 	print("test")
@@ -158,22 +158,28 @@ function REGISTRY:getComponentByName(componentName)
 	end
 end
 
---// COMPONENT SYSTEM //--
+--// SYSTEM //--
 
-function REGISTRY:registerSystem(component, type)
-	-- create and add new system to registry list
+function REGISTRY:registerSystem(component, onEvent, toCall)
+	-- register system to component on event
 
 	if not self.enabled then
 		error("[YAECS] Registry is disabled, cannot register system")
 		return
 	end
 
-	if self.Systems[component] then
-		error("[YAECS] System linked with " .. component .. " already exists")
+	if not self.Components[component] then
+		error("[YAECS] Component " .. component .. " does not exist")
 		return
 	end
 
-	print(type)
+	local system = require(YAECS["System"])()
+
+	local componentReference = self.Components[component]
+
+	local newSystem = system.new(componentReference, onEvent, toCall)
+
+	newSystem:pushFunctionToOnEvents(onEvent, toCall)
 end
 
 --// REGISTRY // --
@@ -202,3 +208,7 @@ function REGISTRY:toggleRegistry(boolean)
 		self.enabled = false
 	end
 end
+
+REGISTRY.__index = REGISTRY
+
+return REGISTRY

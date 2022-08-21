@@ -4,14 +4,14 @@ local ENTITY = {}
 
 --// CONSTRUCTORS //--
 
-function ENTITY.new(id, name)
+function ENTITY.new(id, name, components)
 	local self = setmetatable({}, ENTITY)
 
 	--// INSTANCE PROPERTIES //--
 	self.id = id
 	self.name = name
 	self.enabled = true
-	self.Components = {}
+	self.Components = { components }
 	--////--
 	return self
 end
