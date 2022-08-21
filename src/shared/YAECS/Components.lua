@@ -2,25 +2,20 @@ local COMPONENT = {}
 
 --// STATIC PROPERTIES //--
 
-
 --// CONSTRUCTORS //--
 
 function COMPONENT.new()
-    local self = setmetatable({}, COMPONENT)
+	local self = setmetatable({}, COMPONENT)
 
-    --// INSTANCE PROPERTIES //--
-    self.Properties = {
-
-    }
-    --////--
-    return self
+	--// INSTANCE PROPERTIES //--
+	self.Properties = {}
+	--////--
+	return self
 end
 
 --// STATIC METHODS //--
 
-
 --// INSTANCE METHODS //--
-
 
 --// INSTRUCTIONS //--
 

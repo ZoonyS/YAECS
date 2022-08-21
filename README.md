@@ -2,4 +2,5 @@
 
 ## What is YAECS?
 
-Well it's in the name,YAECS Is yet another entity component system!!!
+While YAECS is inspired by the ECS paradigmn, it doesn't follow it strictly.
+The project is the product of me messing around and creating an interesting system for my own games.
