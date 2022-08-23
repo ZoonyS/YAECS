@@ -9,8 +9,6 @@ local Registry = require(YAECS["Registry"])
 
 local registry = Registry.new()
 
-registry.enabled = true
-
 registry:init()
 
 registry:registerComponent("Position", {
