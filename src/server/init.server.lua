@@ -9,6 +9,8 @@ local Registry = require(YAECS["Registry"])
 
 local registry = Registry.new()
 
+registry.enabled = true
+
 registry:init()
 
 registry:registerComponent("Position", {
@@ -28,13 +30,13 @@ registry:registerComponent("Color", {
 
 print(registry:getComponentByName("Color"))
 
-print(registry.components)
+print(registry.Components)
 -- registry:registerSystem("Position", "onUpdate", function(dt)
 -- 	print("onUpdate")
 -- end)
 
-registry:registerEntity("rainbow_part", { "Position", "Color" })
+registry:registerEntity("rainbow part", { "Position", "Color" })
 
-print(registry:getEntityByName("rainbow_part"))
+print(registry:getEntityByName("rainbow part"))
 
 print(registry.Entities)

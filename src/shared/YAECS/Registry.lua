@@ -36,9 +36,9 @@ function REGISTRY:registerEntity(name, components)
 
 	local entity = require(YAECS["Entity"])
 
-	local newEntity = entity.new(#REGISTRY.Entities, name, components)
+	local newEntity = entity.new(#self.Entities, name, components)
 
-	self.Entities[newEntity] = newEntity
+	self.Entities[name] = newEntity
 	print("test")
 end
 
@@ -83,6 +83,7 @@ function REGISTRY:getEntityByName(entityName)
 	if self.Entities[entityName] then
 		return self.Entities[entityName]
 	else
+		-- error("[YAECS] Could not get entity by name, returning nil")
 		return nil
 	end
 end
@@ -91,7 +92,7 @@ function REGISTRY:getEntityByID(entityID)
 	-- return an object based on ID
 
 	if not self.enabled then
-		error("[YAECS] Registry is disabled, cannot remove entity")
+		-- error("[YAECS] Registry is disabled, cannot remove entity")
 		return
 	end
 
