@@ -36,7 +36,10 @@ function REGISTRY:registerEntity(name, components)
 
 	local entity = require(YAECS["Entity"])
 
-	local newEntity = entity.new(#self.Entities, name, components)
+	local componentTable = self:getComponentsInTable(components)
+	print("component table:", componentTable)
+
+	local newEntity = entity.new(#self.Entities, name, componentTable)
 
 	self.Entities[name] = newEntity
 	print("test")
@@ -83,7 +86,7 @@ function REGISTRY:getEntityByName(entityName)
 	if self.Entities[entityName] then
 		return self.Entities[entityName]
 	else
-		-- error("[YAECS] Could not get entity by name, returning nil")
+		error("[YAECS] Could not get entity by name, returning nil")
 		return nil
 	end
 end
@@ -92,7 +95,7 @@ function REGISTRY:getEntityByID(entityID)
 	-- return an object based on ID
 
 	if not self.enabled then
-		-- error("[YAECS] Registry is disabled, cannot remove entity")
+		error("[YAECS] Registry is disabled, cannot remove entity")
 		return
 	end
 
@@ -152,13 +155,37 @@ function REGISTRY:getComponentByName(componentName)
 		return
 	end
 
-	if self.Components[componentName] then
-		return self.Components[componentName]
-	else
+	print("inside function", self.Components)
+	print("inside function", componentName)
+	if not self.Components[componentName] then
+		error("[YAECS] Component " .. componentName .. " does not exist")
 		return nil
 	end
+
+	return self.Components[componentName]
 end
 
+function REGISTRY:getComponentsInTable(components)
+	-- returns a table of components by name
+	-- name to be changed
+
+	if not self.enabled then
+		error("[YAECS] Registry is disabled, cannot get component")
+		return
+	end
+
+	local componentTable = {}
+
+	for _, v in pairs(components) do
+		print(v)
+		local component = self.getComponentByName(v)
+		print(component)
+		componentTable[#componentTable + 1] = component
+		print(componentTable)
+	end
+
+	return componentTable
+end
 --// SYSTEM //--
 
 function REGISTRY:registerSystem(component, onEvent, toCall)

@@ -17,7 +17,7 @@ registry:registerComponent("Position", {
 	z = 0,
 })
 
-print(registry:getComponentByName("Position"))
+-- print(registry:getComponentByName("Position"))
 
 registry:registerComponent("Color", {
 	r = 0,
@@ -26,15 +26,21 @@ registry:registerComponent("Color", {
 	a = 0,
 })
 
-print(registry:getComponentByName("Color"))
+-- print(registry:getComponentByName("Color"))
 
-print(registry.Components)
+registry:registerComponent("test", {
+	test = "test",
+})
+
+-- print(registry:getComponentByName("test"))
+
+-- print(registry.Components)
 -- registry:registerSystem("Position", "onUpdate", function(dt)
 -- 	print("onUpdate")
 -- end)
 
 registry:registerEntity("rainbow part", { "Position", "Color" })
 
-print(registry:getEntityByName("rainbow part"))
+-- print(registry:getEntityByName("rainbow part"))
 
-print(registry.Entities)
+-- print(registry.Entities)
